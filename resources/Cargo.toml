@@ -1,0 +1,18 @@
+[package]
+name = "bootstrap"
+version = "0.1.1"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+num = "0.4.0"
+image = "0.13.0"
+lambda_runtime = "0.4.1"
+lambda_http = "0.4.1"
+log = "0.4.14"
+serde = "1.0.126"
+serde_json = "1.0.59"
+simple_logger = "1.11.0"
+tokio = "1.6.1"
+base64 = "0.13.0"
