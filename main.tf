@@ -34,6 +34,12 @@ resource "aws_lambda_function_url" "mandelrust-url" {
   authorization_type = "NONE"
 }
 
+data "archive_file" "lambda_zip" {
+  type        = "zip"
+  source_file  = "resources/target/x86_64-unknown-linux-musl/release/bootstrap"
+  output_path = "resources/target/x86_64-unknown-linux-musl/release/lambda.zip"
+}
+
 resource "aws_lambda_function" "mandelrust" {
   description = "Deploying a Rust function on Lambda"
   layers = [] 
@@ -45,4 +51,5 @@ resource "aws_lambda_function" "mandelrust" {
   runtime = "provided.al2"
   handler = "not.required"
   filename = "resources/target/x86_64-unknown-linux-musl/release/lambda.zip"
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 }

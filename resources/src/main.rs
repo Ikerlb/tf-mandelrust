@@ -105,8 +105,6 @@ async fn my_handler(mut req: Request, _c: Context) -> Result<Response<String>, E
                  
             Ok(Response::builder()
                .status(200)
-               .header("Access-Control-Allow-Origin","*")
-               .header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE")
                .header("Access-Control-Allow-Headers", "Content-Type")
                .body(base64::encode(&buf))
                .unwrap())
