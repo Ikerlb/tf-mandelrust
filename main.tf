@@ -32,6 +32,19 @@ resource "aws_iam_role" "mandelrust-iam-role" {
 resource "aws_lambda_function_url" "mandelrust-url" {
   function_name      = aws_lambda_function.mandelrust.function_name
   authorization_type = "NONE"
+
+  # lissarrague.xyz/mandelrust/ calls this from the browser. Without this block, apply
+  # would drop the CORS setting made outside Terraform and the demo would stop loading.
+  cors {
+    allow_origins  = ["https://lissarrague.xyz", "https://www.lissarrague.xyz"]
+    allow_methods  = ["POST"]
+    allow_headers  = ["content-type"]
+    expose_headers = ["x-target", "x-max-zoom"]
+  }
+}
+
+output "url" {
+  value = aws_lambda_function_url.mandelrust-url.function_url
 }
 
 data "archive_file" "lambda_zip" {
